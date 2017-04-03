@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
-#define Size 10
 
 
-void listInit(List *list)		// 리스트의 초기화
+void listInit(List *list, Data *data, int num)		// 리스트의 초기화
 {
 	list->head = (Node*)malloc(sizeof(Node));	// 더미 노드 생성
 	list->head->next = NULL;
 	list->numOfData = 0;
+	list->listData = data;						// 데이터 초기화
 }
 
 void LInsert(List *list, Data *d)	// 노드 생성
@@ -38,16 +38,26 @@ void showList(List *list)
 	printf("\n");
 }
 
-void dataInit(Data * d, int x, int y, int name)
+Node * findFList(List * list)
 {
-	d->x = x;
-	d->y = y;
-	d->name = name;
+	list->before = list->head;
+	list->cur = list->head->next;
+	return list->cur;
 }
 
-void dataPrint(Data * d)
+Node * findNList(List * list)
 {
-	printf("x : %d\n", d->x);
-	printf("y : %d\n", d->y);
-	printf("name : %c\n\n", d->name + 65);
+	list->before = list->cur;
+	list->cur = list->cur->next;
+	return list->cur;
+}
+
+void LRemove(List * list)
+{
+	Node *pos = list->cur;
+	list->before->next = list->cur->next;
+	list->cur = list->before;
+
+	free(pos);
+	(list->numOfData)--;
 }

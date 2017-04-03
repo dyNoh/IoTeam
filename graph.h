@@ -9,7 +9,8 @@ typedef struct _graph
 	struct _list *edgeList;	// 그래프의 리스트들
 }Graph;
 
-void graphInit(Graph *graph, int num);
+void graphInit(Graph *graph, Data *data, int num);						// 그래프 초기화
+void graphDataInit(Graph *graph, Data *data, int num);					// 그래프 초기화(위랑 합칠거임)
 void graphRemove(Graph *graph);
-void addEdge(Graph *graph, Data *from, Data *to);
+void addEdge(Graph *graph, Data *from, Data *to/*, int num*/);	// 간선 연결
 void showGraph(Graph *graph);
