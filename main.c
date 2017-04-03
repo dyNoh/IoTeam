@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include "graph.h"
 #define SIZE 16
 #define _a data[0]

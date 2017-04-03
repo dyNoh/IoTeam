@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 
 #include "list.h"
 
 typedef struct _graph
 {
-	int numOfVertex;		// Á¤Á¡ ¼ö
-	int numOfEdge;			// °£¼± ¼ö
-	struct _list *edgeList;	// ±×·¡ÇÁÀÇ ¸®½ºÆ®µé
+	int numOfVertex;		// ì •ì  ìˆ˜
+	int numOfEdge;			// ê°„ì„  ìˆ˜
+	struct _list *edgeList;	// ê·¸ë˜í”„ì˜ ë¦¬ìŠ¤íŠ¸ë“¤
 }Graph;
 
-void graphInit(Graph *graph, Data *data, int num);						// ±×·¡ÇÁ ÃÊ±âÈ­
-void graphDataInit(Graph *graph, Data *data, int num);					// ±×·¡ÇÁ ÃÊ±âÈ­(À§¶û ÇÕÄ¥°ÅÀÓ)
+void graphInit(Graph *graph, Data *data, int num);						// ê·¸ë˜í”„ ì´ˆê¸°í™”
+void graphDataInit(Graph *graph, Data *data, int num);					// ê·¸ë˜í”„ ì´ˆê¸°í™”(ìœ„ë‘ í•©ì¹ ê±°ì„)
 void graphRemove(Graph *graph);
-void addEdge(Graph *graph, Data *from, Data *to/*, int num*/);	// °£¼± ¿¬°á
+void addEdge(Graph *graph, Data *from, Data *to/*, int num*/);	// ê°„ì„  ì—°ê²°
 void showGraph(Graph *graph);

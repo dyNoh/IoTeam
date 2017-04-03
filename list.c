@@ -1,17 +1,17 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
 
 
-void listInit(List *list, Data *data, int num)		// ¸®½ºÆ®ÀÇ ÃÊ±âÈ­
+void listInit(List *list, Data *data, int num)		// ë¦¬ìŠ¤íŠ¸ì˜ ì´ˆê¸°í™”
 {
-	list->head = (Node*)malloc(sizeof(Node));	// ´õ¹Ì ³ëµå »ý¼º
+	list->head = (Node*)malloc(sizeof(Node));	// ë”ë¯¸ ë…¸ë“œ ìƒì„±
 	list->head->next = NULL;
 	list->numOfData = 0;
-	list->listData = data;						// µ¥ÀÌÅÍ ÃÊ±âÈ­
+	list->listData = data;						// ë°ì´í„° ì´ˆê¸°í™”
 }
 
-void LInsert(List *list, Data *d)	// ³ëµå »ý¼º
+void LInsert(List *list, Data *d)	// ë…¸ë“œ ìƒì„±
 {
 	Node *newNode = (Node*)malloc(sizeof(Node));
 	newNode->data = d;
@@ -25,7 +25,7 @@ void LInsert(List *list, Data *d)	// ³ëµå »ý¼º
 void showList(List *list)
 {
 	list->cur = list->head->next;
-	if (list->cur != NULL)	//  ¾Æ¹« µ¥ÀÌÅÍµµ ¾øÀ» °æ¿ì ¿¹¿ÜÃ³¸®
+	if (list->cur != NULL)	//  ì•„ë¬´ ë°ì´í„°ë„ ì—†ì„ ê²½ìš° ì˜ˆì™¸ì²˜ë¦¬
 	{
 		printf("%c", list->cur->data->name + 65);
 		while (list->cur->next != NULL)
@@ -33,7 +33,7 @@ void showList(List *list)
 			list->cur = list->cur->next;
 			printf(" -> %c", list->cur->data->name + 65);
 		}
-		printf("\t\tÃÑ %d°³", list->numOfData);
+		printf("\t\tì´ %dê°œ", list->numOfData);
 	}
 	printf("\n");
 }

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "data.h"
 
@@ -7,12 +7,12 @@
 
 typedef struct _list
 {
-	struct _node *head;			// Çìµå
-	struct _node *before;		// »èÁ¦¿ë
-	struct _node *cur;			// °Ë»ö¿ë
+	struct _node *head;			// í—¤ë“œ
+	struct _node *before;		// ì‚­ì œìš©
+	struct _node *cur;			// ê²€ìƒ‰ìš©
 	
-	struct _data *listData;		// listData·Î list ÀÚÃ¼¿¡ Á¤º¸ Ç¥½Ã
-	int numOfData;				// ¿¬°áµÈ ³ëµåÀÇ °¹¼ö
+	struct _data *listData;		// listDataë¡œ list ìì²´ì— ì •ë³´ í‘œì‹œ
+	int numOfData;				// ì—°ê²°ëœ ë…¸ë“œì˜ ê°¯ìˆ˜
 }List;
 
 typedef struct _node
@@ -21,9 +21,9 @@ typedef struct _node
 	struct _node *next;
 }Node;
 
-void listInit(List *list, Data *data, int num);		// ¸®½ºÆ®ÀÇ ÃÊ±âÈ­
-void LInsert(List *list, Data *d);					// ³ëµå »ı¼º
-void showList(List *list);							// ¸®½ºÆ® Ãâ·Â
-Node* findFList(List *list);						// ¸®½ºÆ® Ã£±â(Ã³À½)
-Node* findNList(List *list);						// ¸®½ºÆ® Ã£±â(´ÙÀ½)
-void LRemove(List *list);						// ¸®½ºÆ® ³ëµå »èÁ¦
+void listInit(List *list, Data *data, int num);		// ë¦¬ìŠ¤íŠ¸ì˜ ì´ˆê¸°í™”
+void LInsert(List *list, Data *d);					// ë…¸ë“œ ìƒì„±
+void showList(List *list);							// ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
+Node* findFList(List *list);						// ë¦¬ìŠ¤íŠ¸ ì°¾ê¸°(ì²˜ìŒ)
+Node* findNList(List *list);						// ë¦¬ìŠ¤íŠ¸ ì°¾ê¸°(ë‹¤ìŒ)
+void LRemove(List *list);						// ë¦¬ìŠ¤íŠ¸ ë…¸ë“œ ì‚­ì œ

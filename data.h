@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 
-enum { NODE, BEACON, USER, EXIT };							// Á¾·ù
-enum { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P };	// ÀÌ¸§
+enum { NODE, BEACON, USER, EXIT };							// ì¢…ë¥˜
+enum { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P };	// ì´ë¦„
 
 // Init mapData (cm)
 enum {
@@ -23,16 +23,16 @@ enum {
 	p_x = 8536, p_y = 985, p_spec = NODE, p_horizontal = 290, p_vertical = 0
 };
 
-typedef struct _data // µ¥ÀÌÅÍ
+typedef struct _data // ë°ì´í„°
 {
-	int x;			// x ÁÂÇ¥
-	int y;			// y ÁÂÇ¥
-	int name;		// ³ëµå ÀÌ¸§
-	int spec;		// ³ëµå Á¾·ù
-	int horizontal;	// ¼öÆò
-	int vertical;	// ¼öÁ÷
+	int x;			// x ì¢Œí‘œ
+	int y;			// y ì¢Œí‘œ
+	int name;		// ë…¸ë“œ ì´ë¦„
+	int spec;		// ë…¸ë“œ ì¢…ë¥˜
+	int horizontal;	// ìˆ˜í‰
+	int vertical;	// ìˆ˜ì§
 }Data;
 
 void dataInit(Data *d, int x, int y, int name,
-	int spec, int horizontal, int vertical);		// ÁÂÇ¥ÀÇ ÃÊ±âÈ­
-void dataPrint(Data *d);							// µ¥ÀÌÅÍ Ãâ·Â
+	int spec, int horizontal, int vertical);		// ì¢Œí‘œì˜ ì´ˆê¸°í™”
+void dataPrint(Data *d);							// ë°ì´í„° ì¶œë ¥
