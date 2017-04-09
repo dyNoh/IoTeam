@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
 #include "graph.h"
-#define SIZE 16
+#define SIZE 16 
 #define _a data[0]
 #define _b data[1]
 #define _c data[2]
@@ -22,7 +22,7 @@ int main(void)
 {
 	Data data[SIZE];// a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 	Graph graph;
-	dataInit(&data[0], a_x, a_y, A, a_spec, a_horizontal, a_vertical);
+	dataInit(&data[0], a_x, a_y, A, a_spec, a_horizontal, a_vertical);	//데이터 초기화 -> 데이터 구조체, x좌표, y좌표, 노드이름, 노드종류(NODE/BEACON/USER/EXIT), 수평, 수직
 	dataInit(&data[1], b_x, b_y, B, b_spec, b_horizontal, b_vertical);
 	dataInit(&data[2], c_x, c_y, C, c_spec, c_horizontal, c_vertical);
 	dataInit(&data[3], d_x, d_y, D, d_spec, d_horizontal, d_vertical);
@@ -41,12 +41,12 @@ int main(void)
 	
 	for (int i = 0; i < SIZE; i++)
 	{
-		dataPrint(&data[i]);
+		dataPrint(&data[i]); //데이터 출력(0~15번지 까지)
 	}
 
-	graphInit(&graph, data, SIZE);
+	graphInit(&graph, data, SIZE); //그래프 초기화
 	
-	graphDataInit(&graph, data, SIZE);
+	graphDataInit(&graph, data, SIZE);	//그래프 데이터값 초기화
 
 	/*addEdge(&graph, &_a, &_b);
 	addEdge(&graph, &_b, &_c);
@@ -57,7 +57,7 @@ int main(void)
 	addEdge(&graph, &_g, &_i);
 	addEdge(&graph, &_h, &_i);
 	addEdge(&graph, &_i, &_j);*/
-	showGraph(&graph);
-	graphRemove(&graph);
+	showGraph(&graph);	//그래프 출력
+	graphRemove(&graph);	//그래프 삭제
 	return 0;
 }

@@ -1,4 +1,4 @@
-﻿#pragma once
+﻿#pragma once //한번만 컴파일 하도록 명령(헤더의 중복을 막음)
 
 #include "list.h"
 

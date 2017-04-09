@@ -1,21 +1,21 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
 
-void graphInit(Graph * graph, Data *data, int num)
+void graphInit(Graph * graph, Data *data, int num)	//ê·¸ë˜í”„ ì´ˆê¸°í™”
 {
-	graph->edgeList = (List*)malloc(sizeof(List)*num);
+	graph->edgeList = (List*)malloc(sizeof(List)*num);	//ë¦¬ìŠ¤íŠ¸ ìƒì„±
 
-	graph->numOfVertex = num;
-	graph->numOfEdge = 0;
+	graph->numOfVertex = num;	
+	graph->numOfEdge = 0;		//ë°ì´í„° ì´ˆê¸°í™”
 
 	for (int i = 0; i < num; i++) // init
 	{
-		listInit(&(graph->edgeList[i]), &data[i], num);
+		listInit(&(graph->edgeList[i]), &data[i], num);	//ë¦¬ìŠ¤íŠ¸ì´ˆê¸°í™”(ê·¸ë˜í”„ì˜ ë¦¬ìŠ¤íŠ¸ë°°ì—´, ë°ì´í„°ë°°ì—´, ì •ì ê°¯ìˆ˜)
 	}
 }
 
-void graphDataInit(Graph * graph, Data *data, int num)
+void graphDataInit(Graph * graph, Data *data, int num)	//ê·¸ë˜í”„ë°ì´í„° ì´ˆê¸°í™”
 {
 	int bNX, bNY, bNH, bNV, nNX, nNY, nNH, nNV;	// beforeNode, nextNode
 	int Xcount = 0, Ycount = 0, minX, minY, x, y, removeCount = 0;
@@ -25,7 +25,7 @@ void graphDataInit(Graph * graph, Data *data, int num)
 	{
 		for (int j = i + 1; j < num; j++)
 		{
-			// °ªÀÇ ºñ±³¸¦ À§ÇÑ »ğÀÔ
+			// ê°’ì˜ ë¹„êµë¥¼ ìœ„í•œ ì‚½ì…
 			bNX = graph->edgeList[i].listData->x;
 			bNY = graph->edgeList[i].listData->y;
 			bNH = graph->edgeList[i].listData->horizontal;
@@ -35,12 +35,12 @@ void graphDataInit(Graph * graph, Data *data, int num)
 			nNH = graph->edgeList[j].listData->horizontal;
 			nNV = graph->edgeList[j].listData->vertical;
 
-			// x°ª°ú horizontal °ªÀÌ ¼­·Î °°À» °æ¿ì ÀÎÁ¢³ëµå, y°ª°ú vertical °ªÀÌ ¼­·Î °°À» °æ¿ì ÀÎÁ¢³ëµå
+			// xê°’ê³¼ horizontal ê°’ì´ ì„œë¡œ ê°™ì„ ê²½ìš° ì¸ì ‘ë…¸ë“œ, yê°’ê³¼ vertical ê°’ì´ ì„œë¡œ ê°™ì„ ê²½ìš° ì¸ì ‘ë…¸ë“œ
 			if ((bNX == nNX &&bNH == nNH) || (bNY == nNY && bNV == nNV))
 			{
 				LInsert(&(graph->edgeList[i]), &data[j]);
 				LInsert(&(graph->edgeList[j]), &data[i]);
-				(graph->numOfEdge)++;	// °£¼± ¼ö Áõ°¡
+				(graph->numOfEdge)++;	// ê°„ì„  ìˆ˜ ì¦ê°€
 			}
 		}
 	}
@@ -53,7 +53,7 @@ void graphDataInit(Graph * graph, Data *data, int num)
 		bNH = graph->edgeList[i].listData->horizontal;
 		bNV = graph->edgeList[i].listData->vertical;
 
-		node = findFList(&graph->edgeList[i]); // Ã¹¹øÂ° ³ëµå È®ÀÎ
+		node = findFList(&graph->edgeList[i]); // ì²«ë²ˆì§¸ ë…¸ë“œ í™•ì¸
 
 		if (node != NULL)
 		{
@@ -63,16 +63,16 @@ void graphDataInit(Graph * graph, Data *data, int num)
 			nNV = node->data->vertical;
 			if (bNX == nNX &&bNH == nNH)
 			{
-				Xcount++; // x°ª °ãÄ§
+				Xcount++; // xê°’ ê²¹ì¹¨
 			}
 			if (bNY == nNY && bNV == nNV)
 			{
-				Ycount++; // y °ª °ãÄ§
+				Ycount++; // y ê°’ ê²¹ì¹¨
 			}
 
 			while (1)
 			{
-				node = findNList(&graph->edgeList[i]); // µÎ¹øÂ° ÀÌÈÄ ³ëµå È®ÀÎ
+				node = findNList(&graph->edgeList[i]); // ë‘ë²ˆì§¸ ì´í›„ ë…¸ë“œ í™•ì¸
 				if (node != NULL)
 				{
 					nNX = node->data->x;
@@ -81,11 +81,11 @@ void graphDataInit(Graph * graph, Data *data, int num)
 					nNV = node->data->vertical;
 					if (bNX == nNX &&bNH == nNH)
 					{
-						Xcount++; // x°ª °ãÄ§
+						Xcount++; // xê°’ ê²¹ì¹¨
 					}
 					if (bNY == nNY && bNV == nNV)
 					{
-						Ycount++; // y °ª °ãÄ§
+						Ycount++; // y ê°’ ê²¹ì¹¨
 					}
 				}
 				else
@@ -95,9 +95,9 @@ void graphDataInit(Graph * graph, Data *data, int num)
 			}
 		}
 
-		// DÁ¡, HÁ¡, JÁ¡,LÁ¡µîÀº »ı°¢ÇØ ºÁ¾ßÇÔ
+		// Dì , Hì , Jì ,Lì ë“±ì€ ìƒê°í•´ ë´ì•¼í•¨
 
-		if (Xcount > 1) // x°ª °ãÄ¥°æ¿ì y°ª ÂªÀº °æ·Î À¯Áö ³ª¸ÓÁö »èÁ¦
+		if (Xcount > 1) // xê°’ ê²¹ì¹ ê²½ìš° yê°’ ì§§ì€ ê²½ë¡œ ìœ ì§€ ë‚˜ë¨¸ì§€ ì‚­ì œ
 		{
 			node = findFList(&graph->edgeList[i]);
 			if (node != NULL)
@@ -105,7 +105,7 @@ void graphDataInit(Graph * graph, Data *data, int num)
 				if (graph->edgeList[i].listData->x == node->data->x)
 				{
 					minY = graph->edgeList[i].listData->y - node->data->y;
-					if (minY < 0) // À½¼öÀÏ °æ¿ì Àı´ë°ª
+					if (minY < 0) // ìŒìˆ˜ì¼ ê²½ìš° ì ˆëŒ€ê°’
 					{
 						minY = -minY;
 					}
@@ -118,18 +118,18 @@ void graphDataInit(Graph * graph, Data *data, int num)
 						if (graph->edgeList[i].listData->x == node->data->x)
 						{
 							y = graph->edgeList[i].listData->y - node->data->y;
-							if (y < 0) // À½¼öÀÏ °æ¿ì Àı´ë°ª
+							if (y < 0) // ìŒìˆ˜ì¼ ê²½ìš° ì ˆëŒ€ê°’
 							{
 								y = -y;
 							}
 							if (minY > y)
 							{
-								y = minY; // ³ëµå º¯°æ
-								// ¾ÕÀÇ °ª »èÁ¦ ÇÊ¿äÇÔ
+								y = minY; // ë…¸ë“œ ë³€ê²½
+								// ì•ì˜ ê°’ ì‚­ì œ í•„ìš”í•¨
 							}
 							else
 							{
-								printf("%c¿¡¼­ %c¸¦ »èÁ¦ÇÕ´Ï´Ù.\n", i+65, graph->edgeList[i].cur->data->name +65);
+								printf("%cì—ì„œ %cë¥¼ ì‚­ì œí•©ë‹ˆë‹¤.\n", i+65, graph->edgeList[i].cur->data->name +65);
 								LRemove(&graph->edgeList[i]);
 								removeCount++;
 							}
@@ -144,7 +144,7 @@ void graphDataInit(Graph * graph, Data *data, int num)
 				{
 					if (findFList(&graph->edgeList[i]) != NULL)
 					{
-						printf("%c¿¡¼­ %c¸¦ »èÁ¦ÇÕ´Ï´Ù.\n", i + 65, graph->edgeList[i].cur->data->name + 65);
+						printf("%cì—ì„œ %cë¥¼ ì‚­ì œí•©ë‹ˆë‹¤.\n", i + 65, graph->edgeList[i].cur->data->name + 65);
 						LRemove(&graph->edgeList[i]);
 					}
 				}
@@ -152,7 +152,7 @@ void graphDataInit(Graph * graph, Data *data, int num)
 			}
 		}
 
-		if (Ycount > 1) // y°ª °ãÄ¥°æ¿ì x°ª ÂªÀº °æ·Î À¯Áö ³ª¸ÓÁö »èÁ¦
+		if (Ycount > 1) // yê°’ ê²¹ì¹ ê²½ìš° xê°’ ì§§ì€ ê²½ë¡œ ìœ ì§€ ë‚˜ë¨¸ì§€ ì‚­ì œ
 		{
 			node = findFList(&graph->edgeList[i]);
 			if (node != NULL)
@@ -160,7 +160,7 @@ void graphDataInit(Graph * graph, Data *data, int num)
 				if (graph->edgeList[i].listData->y == node->data->y)
 				{
 					minX = graph->edgeList[i].listData->x - node->data->x;
-					if (minX < 0) // À½¼öÀÏ °æ¿ì Àı´ë°ª
+					if (minX < 0) // ìŒìˆ˜ì¼ ê²½ìš° ì ˆëŒ€ê°’
 					{
 						minX = -minX;
 					}
@@ -173,13 +173,13 @@ void graphDataInit(Graph * graph, Data *data, int num)
 						if (graph->edgeList[i].listData->y == node->data->y)
 						{
 							x = graph->edgeList[i].listData->x - node->data->x;
-							if (x < 0) // À½¼öÀÏ °æ¿ì Àı´ë°ª
+							if (x < 0) // ìŒìˆ˜ì¼ ê²½ìš° ì ˆëŒ€ê°’
 							{
 								x = -x;
 							}
 							if (minY > x)
 							{
-								x = minX; // ³ëµå º¯°æ
+								x = minX; // ë…¸ë“œ ë³€ê²½
 							}
 							else
 							{
@@ -209,27 +209,27 @@ void graphDataInit(Graph * graph, Data *data, int num)
 	}*/
 }
 
-void graphRemove(Graph * graph)
+void graphRemove(Graph * graph)	//ê·¸ë˜í”„ ì‚­ì œ
 {
-	if (graph->edgeList != NULL)
+	if (graph->edgeList != NULL)	//ê·¸ë˜í”„ì˜ ë¦¬ìŠ¤íŠ¸ë“¤ì´ ì—†ì„ë•Œê¹Œì§€
 	{
-		free(graph->edgeList);
+		free(graph->edgeList);	//ë©”ëª¨ë¦¬ ë™ì í• ë‹¹ í•´ì œ
 	}
 }
 
-void addEdge(Graph * graph, Data *from, Data *to/*, int num*/)
+void addEdge(Graph * graph, Data *from, Data *to/*, int num*/)	//ì—°ê²°ëœ ê·¸ë˜í”„ ì¶”ê°€
 {
-	LInsert(&(graph->edgeList[from->name]), to);
+	LInsert(&(graph->edgeList[from->name]), to);	//ë¦¬ìŠ¤íŠ¸ ì¶”ê°€
 	LInsert(&(graph->edgeList[to->name]), from);
-	(graph->numOfEdge)++;	// °£¼± ¼ö Áõ°¡
+	(graph->numOfEdge)++;	// ê°„ì„  ìˆ˜ ì¦ê°€
 }
 
-void showGraph(Graph * graph)
+void showGraph(Graph * graph)	//ê·¸ë˜í”„ ì¶œë ¥
 {
-	for (int i = 0; i < graph->numOfVertex; i++)
+	for (int i = 0; i < graph->numOfVertex; i++)	//ì •ì  ìˆ˜ë§Œí¼ ë°˜ë³µ
 	{
-		printf("%c¿Í ¿¬°áµÈ Á¤Á¡ : ", i + 65);
-
-		showList(&(graph->edgeList[i]));
+		printf("%cì™€ ì—°ê²°ëœ ì •ì  : ", i + 65);	//ASCIIì½”ë“œë²ˆí˜¸ 65ë²ˆ ë”í•˜ì—¬ ì¶œë ¥
+		
+		showList(&(graph->edgeList[i]));	//ë¦¬ìŠ¤íŠ¸ ì¶œë ¥
 	}
 }
