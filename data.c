@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include "data.h"
 
 void dataInit(Data * d, int x, int y, int name,

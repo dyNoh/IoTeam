@@ -1,5 +1,8 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include "graph.h"
+#include "user.h"
+#include "route.h"
+
 #define SIZE 16 
 #define _a data[0]
 #define _b data[1]
@@ -22,6 +25,9 @@ int main(void)
 {
 	Data data[SIZE];// a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 	Graph graph;
+	User user;
+	int *route;
+	int routeData[SIZE][SIZE];
 	dataInit(&data[0], a_x, a_y, A, a_spec, a_horizontal, a_vertical);	//데이터 초기화 -> 데이터 구조체, x좌표, y좌표, 노드이름, 노드종류(NODE/BEACON/USER/EXIT), 수평, 수직
 	dataInit(&data[1], b_x, b_y, B, b_spec, b_horizontal, b_vertical);
 	dataInit(&data[2], c_x, c_y, C, c_spec, c_horizontal, c_vertical);
@@ -45,19 +51,16 @@ int main(void)
 	}
 
 	graphInit(&graph, data, SIZE); //그래프 초기화
-	
-	graphDataInit(&graph, data, SIZE);	//그래프 데이터값 초기화
-
-	/*addEdge(&graph, &_a, &_b);
-	addEdge(&graph, &_b, &_c);
-	addEdge(&graph, &_c, &_d);
-	addEdge(&graph, &_d, &_e);
-	addEdge(&graph, &_e, &_g);
-	addEdge(&graph, &_f, &_g);
-	addEdge(&graph, &_g, &_i);
-	addEdge(&graph, &_h, &_i);
-	addEdge(&graph, &_i, &_j);*/
 	showGraph(&graph);	//그래프 출력
+
+	makeRandomUser(&user);	// 랜덤 좌표 유저
+	showUser(&user);		// 유저 위치 출력
+	route = traceEXIT(&graph, &user, SIZE);	// 현재 유저의 위치를 바탕으로 경로 찾기
+	showRoute(route, SIZE);	// 찾은 경로 전체 보여줌
+	routeDataInit(&graph, routeData, SIZE); // 최단경로 알고리즘 넣기 전 경로 최솟값 초기화
+	// 길찾는 알고리즘 삽입(다익스트라)
+
+
 	graphRemove(&graph);	//그래프 삭제
 	return 0;
 }

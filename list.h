@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "data.h"
 
@@ -26,4 +26,4 @@ void LInsert(List *list, Data *d);					// 노드 생성
 void showList(List *list);							// 리스트 출력
 Node* findFList(List *list);						// 리스트 찾기(처음)
 Node* findNList(List *list);						// 리스트 찾기(다음)
-void LRemove(List *list);						// 리스트 노드 삭제
+void LRemove(List *list);							// 리스트 노드 삭제

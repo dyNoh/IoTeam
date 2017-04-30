@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 enum { NODE, BEACON, USER, EXIT };							// 종류
 enum { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P };	// 이름

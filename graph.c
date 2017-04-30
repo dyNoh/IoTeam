@@ -1,9 +1,13 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
 
 void graphInit(Graph * graph, Data *data, int num)	//그래프 초기화
 {
+	int bNX, bNY, bNH, bNV, nNX, nNY, nNH, nNV;	// beforeNode, nextNode
+//	int Xcount = 0, Ycount = 0, minX, minY, x, y, removeCount = 0;
+//	Node *node;
+
 	graph->edgeList = (List*)malloc(sizeof(List)*num);	//리스트 생성
 
 	graph->numOfVertex = num;	
@@ -13,13 +17,6 @@ void graphInit(Graph * graph, Data *data, int num)	//그래프 초기화
 	{
 		listInit(&(graph->edgeList[i]), &data[i], num);	//리스트초기화(그래프의 리스트배열, 데이터배열, 정점갯수)
 	}
-}
-
-void graphDataInit(Graph * graph, Data *data, int num)	//그래프데이터 초기화
-{
-	int bNX, bNY, bNH, bNV, nNX, nNY, nNH, nNV;	// beforeNode, nextNode
-	int Xcount = 0, Ycount = 0, minX, minY, x, y, removeCount = 0;
-	Node *node;
 
 	for (int i = 0; i < num; i++) // 1STEP
 	{
@@ -129,7 +126,7 @@ void graphDataInit(Graph * graph, Data *data, int num)	//그래프데이터 초�
 							}
 							else
 							{
-								printf("%c에서 %c를 삭제합니다.\n", i+65, graph->edgeList[i].cur->data->name +65);
+								printf("%c에서 %c를 삭제합니다.\n", i + 65, graph->edgeList[i].cur->data->name + 65);
 								LRemove(&graph->edgeList[i]);
 								removeCount++;
 							}
