@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define MAX_X 8826
 #define MAX_Y 1866

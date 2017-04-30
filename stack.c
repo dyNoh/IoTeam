@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include "stack.h"
 
 void stackInit(Stack * stack)
