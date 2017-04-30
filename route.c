@@ -131,8 +131,90 @@ void routeDataInit(Graph * graph, int(*route)[SIZE], int size)
 			}
 		}
 	}
+
+	// 다익스트라 알고리즘
+
+	for (int i = 0; i < size; i++)
+	{
+		dijkstra(route, i); // 그래프, 시작 정점
+	}
+
+	/*for (int i = 0; i < size; i++)
+	{
+		dist[i] = MM;
+	}
+
+	dist[0] = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		min = MM;
+
+		for (int j = 0; j < size; j++)
+		{
+			if (min > dist[j] && set[j] == 0)
+			{
+				min = dist[j];
+				index = j;
+			}
+		}
+
+		for (int j = 0; j < size; j++)
+		{
+			if (dist[j] > route[index][j] + dist[index] && route[index][j] != MM && set[index] == 0)
+			{
+				dist[j] = route[index][j] + dist[index];
+			}
+		}
+		set[index] = 1;
+	}
+
+	for (int i = 0; i < size; i++)
+	{
+		printf("A -> %c : %d\n", i+65, dist[i]);
+	}
+
+	for (int i = 0; i < size; i++)
+	{
+		printf("set[%d] = %d\n", i, set[i]);
+	}*/
+
+	/*for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			set[j] = 0;
+		}
+		
+		min = MM;
+		
+		for (int j = 0; j < size; j++)
+		{
+			if (i == j) // 동일한 경로일 경우 제외
+			{
+				continue;
+			}
+			if (min > route[i][j] && set[j] == 0) // set이 False(결정되지 않음)이고 min보다 작은 값일 때
+			{
+				min = route[i][j]; // 최솟값 변경
+				index = j; // index값 얻음
+			}
+		}
+
+		set[index] = 1;
+
+		for (int j = 0; j < size; j++)
+		{
+			if (route[i][j] > route[index][j] + route[i][index] && route[index][j] != MM)
+			{
+				route[i][j] = route[index][j] + route[i][index];
+			}
+		}
+
+	}*/
 	
-	printf("\n\n\n\n*****\n");
+	
+	/*printf("\n\n\n\n*****\n");
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
@@ -149,5 +231,47 @@ void routeDataInit(Graph * graph, int(*route)[SIZE], int size)
 		}
 		printf("\n");
 	}
-	printf("\n*****\n\n\n\n");
+	printf("\n*****\n\n\n\n");*/
+}
+
+void dijkstra(int(*route)[SIZE], int src)
+{
+	int min, index;
+	int set[SIZE] = { 0 };
+	int dist[SIZE];
+	for (int i = 0; i < SIZE; i++)
+	{
+		dist[i] = MM;
+	}
+
+	dist[src] = 0;
+
+	for (int i = 0; i < SIZE; i++)
+	{
+		min = MM;
+
+		for (int j = 0; j < SIZE; j++)
+		{
+			if (min > dist[j] && set[j] == 0)
+			{
+				min = dist[j];
+				index = j;
+			}
+		}
+
+		for (int j = 0; j < SIZE; j++)
+		{
+			if (dist[j] > route[index][j] + dist[index] && route[index][j] != MM && set[index] == 0)
+			{
+				dist[j] = route[index][j] + dist[index];
+			}
+		}
+		set[index] = 1;
+	}
+
+	printf("---------------------\n");
+	for (int i = 0; i < SIZE; i++)
+	{
+		printf("%c -> %c : %d\n", src+65, i + 65, dist[i]);
+	}
 }

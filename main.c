@@ -57,8 +57,8 @@ int main(void)
 	showUser(&user);		// 유저 위치 출력
 	route = traceEXIT(&graph, &user, SIZE);	// 현재 유저의 위치를 바탕으로 경로 찾기
 	showRoute(route, SIZE);	// 찾은 경로 전체 보여줌
-	routeDataInit(&graph, routeData, SIZE); // 최단경로 알고리즘 넣기 전 경로 최솟값 초기화
-	// 길찾는 알고리즘 삽입(다익스트라)
+	routeDataInit(&graph, routeData, SIZE); // 최단경로 알고리즘
+	// 경로 파악하기 (스택 사용해야 할 것 같음)
 
 
 	graphRemove(&graph);	//그래프 삭제
