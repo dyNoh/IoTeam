@@ -2,47 +2,92 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int* traceEXIT(Graph * graph, User * user, int size)
+Queue* traceEXIT(Graph * graph, User * user, Queue *queue, int(*routeData)[SIZE], int size)
 {
 	int *route = (int*)malloc(sizeof(int) * size);
 	int x, y;
+	int name;
 	Min _min = { RIGHT_END, 0 };
 	Min *min = &_min;
-	Stack stack;
 	int num;
+	int findNode[SIZE] = { 0 };
+	int findNodeValue = MM;
+	int max = 0, maxIndex;
+	int index;
 
-	stackInit(&stack);
-
-	// 1STEP 모든 노드까지의 경로를 찾는다.
-	min = findRoute(graph, user, min, route, size);
-	/*for (int i = 0; i < size; i++)
+	// 1STEP EXIT 노드 찾는다.
+	for (int i = 0; i < size; i++)
 	{
-		x = user->x - graph->edgeList[i].listData->x;
-		y = user->y - graph->edgeList[i].listData->y;
-		if (x < 0) x = -x;
-		if (y < 0) y = -y;
-		route[i] = x + y;
-		if (min.minRoute > route[i])
+		if (graph->edgeList[i].listData->spec == EXIT)
 		{
-			min.minRoute = route[i];
-			min.minIndex = i;
+			name = graph->edgeList[i].listData->name;
 		}
-	}*/
+	}
+
+	// 2STEP User와 가까운 노드 찾는다. if User와 가까운 노드가 EXIT노드일 경우 종료
+	min = findRoute(graph, user, min, route, size);
 
 	printf("minRoute : %d\n", min->minRoute);
 	printf("minNode : %c\n", min->minIndex + 65);
 
-	push(&stack, min->minIndex);
-	num = peek(&stack);
-	printf("num = %c\n", num + 65);
+	enQueue(queue, min->minRoute, min->minIndex);
 
-	// 연결된 노드와 근접노드를 구한다.
+	showRoute(route, size);
 
-	return route;
+	if (min->minIndex == name)
+	{
+		return queue;
+	}
+	// 3STEP 다익스트라 알고리즘을 통해 경로를 전부 구한다.
+	routeDataInit(graph, routeData, size);
+
+	// 4STEP 가까운 노드를 X라 했을 때 X->K 보다 Y->K가 작고 X->Y + Y->EXIT == X->EXIT && !name인 노드들 찾는다.
+	printf("[ ");
+	for (int i = 0; i < size; i++)
+	{
+		if (routeData[min->minIndex][name] > routeData[i][name] && (routeData[min->minIndex][i] + routeData[i][name]) == routeData[min->minIndex][name] && i != name)
+		{
+			findNode[i] = TRUE;
+		}
+		printf("%d ", findNode[i]);
+	}
+	printf("]\n");
 	
-	// 2STEP 가까운 노드로 이동 후 경로를 찾는다.
-	// 2_1 경로를 찾아나간다.
-	// 2_2 EXIT 노드일 경우 종료
+	// 5STEP 찾은 노드들 중 거리가 큰 수부터 큐에 넣는다.
+
+	while (findNodeValue != 0)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (findNode[i] == TRUE)
+			{
+				if (max < routeData[i][name])
+				{
+					max = routeData[i][name];
+					maxIndex = i;
+				}
+			}
+		}
+		printf("maxIndex = %c\n", maxIndex + 65);
+		printf("max = %d\n", max);
+		enQueue(queue, max, maxIndex);
+		max = 0;
+		findNode[maxIndex] = 0;
+		printf("[ ");
+		findNodeValue = 0;
+		for (int i = 0; i < size; i++)
+		{
+			findNodeValue += findNode[i];
+			printf("%d ", findNode[i]);
+		}
+		printf("]\n");
+		printf("value : %d\n", findNodeValue);
+	}
+
+	// 6STEP EXIT 노드 넣는다.
+	enQueue(queue, routeData[maxIndex][name], name);
+
+	return queue;
 }
 
 void showRoute(int * route, int size)
@@ -56,9 +101,6 @@ void showRoute(int * route, int size)
 Min* findNextNode(List * list)
 {
 	int *numOfData = (int*)malloc(sizeof(int) * list->numOfData);
-
-
-
 	return 0;
 }
 
@@ -138,81 +180,6 @@ void routeDataInit(Graph * graph, int(*route)[SIZE], int size)
 	{
 		dijkstra(route, i); // 그래프, 시작 정점
 	}
-
-	/*for (int i = 0; i < size; i++)
-	{
-		dist[i] = MM;
-	}
-
-	dist[0] = 0;
-
-	for (int i = 0; i < size; i++)
-	{
-		min = MM;
-
-		for (int j = 0; j < size; j++)
-		{
-			if (min > dist[j] && set[j] == 0)
-			{
-				min = dist[j];
-				index = j;
-			}
-		}
-
-		for (int j = 0; j < size; j++)
-		{
-			if (dist[j] > route[index][j] + dist[index] && route[index][j] != MM && set[index] == 0)
-			{
-				dist[j] = route[index][j] + dist[index];
-			}
-		}
-		set[index] = 1;
-	}
-
-	for (int i = 0; i < size; i++)
-	{
-		printf("A -> %c : %d\n", i+65, dist[i]);
-	}
-
-	for (int i = 0; i < size; i++)
-	{
-		printf("set[%d] = %d\n", i, set[i]);
-	}*/
-
-	/*for (int i = 0; i < size; i++)
-	{
-		for (int j = 0; j < size; j++)
-		{
-			set[j] = 0;
-		}
-		
-		min = MM;
-		
-		for (int j = 0; j < size; j++)
-		{
-			if (i == j) // 동일한 경로일 경우 제외
-			{
-				continue;
-			}
-			if (min > route[i][j] && set[j] == 0) // set이 False(결정되지 않음)이고 min보다 작은 값일 때
-			{
-				min = route[i][j]; // 최솟값 변경
-				index = j; // index값 얻음
-			}
-		}
-
-		set[index] = 1;
-
-		for (int j = 0; j < size; j++)
-		{
-			if (route[i][j] > route[index][j] + route[i][index] && route[index][j] != MM)
-			{
-				route[i][j] = route[index][j] + route[i][index];
-			}
-		}
-
-	}*/
-	
 	
 	/*printf("\n\n\n\n*****\n");
 	for (int i = 0; i < size; i++)
@@ -269,9 +236,16 @@ void dijkstra(int(*route)[SIZE], int src)
 		set[index] = 1;
 	}
 
+	/*for (int i = 0; i < SIZE; i++)
+	{
+		printf("set[%d] = %d\n", i, set[i]);
+	}*/
+
 	printf("---------------------\n");
 	for (int i = 0; i < SIZE; i++)
 	{
 		printf("%c -> %c : %d\n", src+65, i + 65, dist[i]);
+		// 추가
+		route[src][i] = dist[i];
 	}
 }

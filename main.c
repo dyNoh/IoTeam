@@ -2,6 +2,7 @@
 #include "graph.h"
 #include "user.h"
 #include "route.h"
+#include "queue.h"
 
 #define SIZE 16 
 #define _a data[0]
@@ -26,8 +27,12 @@ int main(void)
 	Data data[SIZE];// a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p;
 	Graph graph;
 	User user;
+	Queue _queue;
+	Queue *queue = NULL;
+	Min _min = { RIGHT_END,0 };
 	int *route;
 	int routeData[SIZE][SIZE];
+	int minIndex, minRoute;
 	dataInit(&data[0], a_x, a_y, A, a_spec, a_horizontal, a_vertical);	//데이터 초기화 -> 데이터 구조체, x좌표, y좌표, 노드이름, 노드종류(NODE/BEACON/USER/EXIT), 수평, 수직
 	dataInit(&data[1], b_x, b_y, B, b_spec, b_horizontal, b_vertical);
 	dataInit(&data[2], c_x, c_y, C, c_spec, c_horizontal, c_vertical);
@@ -45,6 +50,9 @@ int main(void)
 	dataInit(&data[14], o_x, o_y, O, o_spec, o_horizontal, o_vertical);
 	dataInit(&data[15], p_x, p_y, P, p_spec, p_horizontal, p_vertical);
 	
+	queueInit(&_queue);
+	queue = &_queue;
+
 	for (int i = 0; i < SIZE; i++)
 	{
 		dataPrint(&data[i]); //데이터 출력(0~15번지 까지)
@@ -55,12 +63,28 @@ int main(void)
 
 	makeRandomUser(&user);	// 랜덤 좌표 유저
 	showUser(&user);		// 유저 위치 출력
-	route = traceEXIT(&graph, &user, SIZE);	// 현재 유저의 위치를 바탕으로 경로 찾기
-	showRoute(route, SIZE);	// 찾은 경로 전체 보여줌
-	routeDataInit(&graph, routeData, SIZE); // 최단경로 알고리즘
+	queue = traceEXIT(&graph, &user, queue, routeData, SIZE);	// 현재 유저의 위치를 바탕으로 경로 찾기
+
+	printf("현재 User의 위치 x : %d, y : %d\n", user.x, user.y);
+	while (!qIsEmpty(queue))
+	{
+		printf("현재 User의 위치에서 탈출구까지의 거리 : %dcm\n", queue->route);
+		minRoute = routePeek(queue);
+		minIndex = deQueue(queue);
+		printf("다음 노드 %c", minIndex + 65);
+		if (queue->front == NULL)
+		{
+			printf("(EXIT 노드(탈출구))");
+		}
+		printf("\n");
+		printf("다음 노드까지의 거리 : %dcm\n", minRoute);
+	}
+
+	//showRoute(route, SIZE);	// 찾은 경로 전체 보여줌
+	//routeDataInit(&graph, routeData, SIZE); // 최단경로 알고리즘
 	// 경로 파악하기 (스택 사용해야 할 것 같음)
 
-
 	graphRemove(&graph);	//그래프 삭제
+
 	return 0;
 }
