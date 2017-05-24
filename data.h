@@ -4,7 +4,7 @@ enum { NODE, BEACON, USER, EXIT };							// 종류
 enum { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P };	// 이름
 
 // Init mapData (cm)
-enum {
+/*enum {
 	a_x = 106, a_y = 0, a_spec = NODE, a_horizontal = 106, a_vertical = 0,
 	b_x = 106, b_y = 904, b_spec = NODE, b_horizontal = 106, b_vertical = 91,
 	c_x = 782, c_y = 1, c_spec = NODE, c_horizontal = 96, c_vertical = 0,
@@ -21,7 +21,7 @@ enum {
 	n_x = 5256, n_y = 1735, n_spec = NODE, n_horizontal = 100, n_vertical = 131,
 	o_x = 8536, o_y = 1735, o_spec = NODE, o_horizontal = 290, o_vertical = 131,
 	p_x = 8536, p_y = 985, p_spec = NODE, p_horizontal = 290, p_vertical = 0
-};
+};*/
 
 typedef struct _data // 데이터
 {

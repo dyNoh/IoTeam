@@ -13,6 +13,8 @@ void makeRandomUser(User * user)
 	user->vertical = PRECISION;
 }
 
+//user의 현재 위치 받아오는 함수 작성 예정
+
 void showUser(User * user)
 {
 	printf("user X : %d\n", user->x);

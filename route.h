@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "graph.h"
 #include "user.h"
-#include "stack.h"
 #include "queue.h"
 
 #define LEFT_END 0

@@ -12,7 +12,7 @@ Queue* traceEXIT(Graph * graph, User * user, Queue *queue, int(*routeData)[SIZE]
 	int num;
 	int findNode[SIZE] = { 0 };
 	int findNodeValue = MM;
-	int max = 0, maxIndex;
+	int max = 0, maxIndex = MM;
 	int index;
 
 	// 1STEP EXIT 노드 찾는다.
@@ -26,35 +26,27 @@ Queue* traceEXIT(Graph * graph, User * user, Queue *queue, int(*routeData)[SIZE]
 
 	// 2STEP User와 가까운 노드 찾는다. if User와 가까운 노드가 EXIT노드일 경우 종료
 	min = findRoute(graph, user, min, route, size);
-
-	printf("minRoute : %d\n", min->minRoute);
-	printf("minNode : %c\n", min->minIndex + 65);
-
+	//showRoute(route, size);
 	enQueue(queue, min->minRoute, min->minIndex);
-
-	showRoute(route, size);
 
 	if (min->minIndex == name)
 	{
 		return queue;
 	}
+
 	// 3STEP 다익스트라 알고리즘을 통해 경로를 전부 구한다.
 	routeDataInit(graph, routeData, size);
 
-	// 4STEP 가까운 노드를 X라 했을 때 X->K 보다 Y->K가 작고 X->Y + Y->EXIT == X->EXIT && !name인 노드들 찾는다.
-	printf("[ ");
+	// 4STEP 가까운 노드를 X라 했을 때 X->K 보다 Y->K가 작고 X->Y + Y->EXIT == X->EXIT && i != name인 노드들 찾는다.
 	for (int i = 0; i < size; i++)
 	{
 		if (routeData[min->minIndex][name] > routeData[i][name] && (routeData[min->minIndex][i] + routeData[i][name]) == routeData[min->minIndex][name] && i != name)
 		{
 			findNode[i] = TRUE;
 		}
-		printf("%d ", findNode[i]);
 	}
-	printf("]\n");
-	
-	// 5STEP 찾은 노드들 중 거리가 큰 수부터 큐에 넣는다.
 
+	// 5STEP 찾은 노드들 중 거리가 큰 수부터 큐에 넣는다.
 	while (findNodeValue != 0)
 	{
 		for (int i = 0; i < size; i++)
@@ -68,20 +60,21 @@ Queue* traceEXIT(Graph * graph, User * user, Queue *queue, int(*routeData)[SIZE]
 				}
 			}
 		}
-		printf("maxIndex = %c\n", maxIndex + 65);
-		printf("max = %d\n", max);
+		
+		if (maxIndex == MM)
+		{
+			enQueue(queue, routeData[min->minIndex][name], name);
+			return queue;
+		}
+
 		enQueue(queue, max, maxIndex);
 		max = 0;
 		findNode[maxIndex] = 0;
-		printf("[ ");
 		findNodeValue = 0;
 		for (int i = 0; i < size; i++)
 		{
 			findNodeValue += findNode[i];
-			printf("%d ", findNode[i]);
 		}
-		printf("]\n");
-		printf("value : %d\n", findNodeValue);
 	}
 
 	// 6STEP EXIT 노드 넣는다.
@@ -241,11 +234,9 @@ void dijkstra(int(*route)[SIZE], int src)
 		printf("set[%d] = %d\n", i, set[i]);
 	}*/
 
-	printf("---------------------\n");
 	for (int i = 0; i < SIZE; i++)
 	{
-		printf("%c -> %c : %d\n", src+65, i + 65, dist[i]);
-		// 추가
+		//printf("%c -> %c : %d\n", src+65, i + 65, dist[i]);
 		route[src][i] = dist[i];
 	}
 }
